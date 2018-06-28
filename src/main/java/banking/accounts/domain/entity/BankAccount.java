@@ -16,15 +16,11 @@ public class BankAccount {
     }
 
     public void lock() {
-        if (!this.isLocked) {
-            this.isLocked = true;
-        }
+        this.isLocked = !this.isLocked ? true : this.isLocked;
     }
 
     public void unLock() {
-        if (this.isLocked) {
-            this.isLocked = false;
-        }
+        this.isLocked = this.isLocked ? false : this.isLocked; 
     }
 
     public boolean hasIdentity() {
