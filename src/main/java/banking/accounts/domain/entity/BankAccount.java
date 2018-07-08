@@ -3,24 +3,23 @@ package banking.accounts.domain.entity;
 import java.math.BigDecimal;
 
 import banking.common.application.Notification;
-import banking.customers.domain.entity.Customer;
 
 public class BankAccount {
 	private long id;
     private String number;
     private BigDecimal balance;
-    private boolean isLocked;
+    private boolean locked;
     private Customer customer;
 
     public BankAccount() {
     }
 
     public void lock() {
-        this.isLocked = !this.isLocked ? true : this.isLocked;
+        this.locked = !this.locked ? true : this.locked;
     }
 
     public void unLock() {
-        this.isLocked = this.isLocked ? false : this.isLocked; 
+        this.locked = this.locked ? false : this.locked; 
     }
 
     public boolean hasIdentity() {
@@ -72,7 +71,7 @@ public class BankAccount {
         if (!this.hasIdentity()) {
             notification.addError("The account has no identity");
         }
-        if (this.isLocked) {
+        if (this.locked) {
         	notification.addError("The account is locked");
         }
     }
@@ -87,7 +86,7 @@ public class BankAccount {
     }
 
     public boolean canBeWithdrawed(BigDecimal amount) {
-        return !this.isLocked && (this.balance.compareTo(amount) >= 0);
+        return !this.locked && (this.balance.compareTo(amount) >= 0);
     }
 
     public long getId() {
@@ -114,15 +113,15 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public boolean getIsLocked() {
-        return isLocked;
-    }
-    
-    public void setIsLocked(boolean isLocked) {
-        this.isLocked = isLocked;
-    }
+    public boolean isLocked() {
+		return locked;
+	}
 
-    public Customer getCustomer() {
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	public Customer getCustomer() {
         return customer;
     }
 

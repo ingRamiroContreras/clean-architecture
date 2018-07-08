@@ -5,6 +5,6 @@ http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<bean id="transferDomainService" class="banking.transactions.domain.service.TransferDomainService"></bean>
+	<bean id="transferDomainService" class="banking.transactions.domain.service.TransferDomainService"></bean>	
 
 </beans>

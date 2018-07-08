@@ -7,8 +7,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import banking.accounts.domain.entity.Customer;
 import banking.common.infrastructure.hibernate.repository.BaseHibernateRepository;
-import banking.customers.domain.entity.Customer;
 import banking.customers.domain.repository.CustomerRepository;
 
 @Repository

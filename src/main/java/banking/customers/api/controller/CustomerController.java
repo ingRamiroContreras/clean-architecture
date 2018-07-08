@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import banking.common.api.controller.ResponseHandler;
 import banking.customers.application.CustomerApplicationService;
-import banking.customers.application.dto.CustomerDto;
 import banking.customers.domain.RequestCustomerDto;
-import banking.transactions.application.TransactionApplicationService;
-import banking.transactions.application.dto.RequestBankTransferDto;
 
 @RestController
 @RequestMapping("api/customers/")

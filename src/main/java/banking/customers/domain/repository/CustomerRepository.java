@@ -2,7 +2,7 @@ package banking.customers.domain.repository;
 
 import java.util.List;
 
-import banking.customers.domain.entity.Customer;
+import banking.accounts.domain.entity.Customer;
 
 public interface CustomerRepository {
 	Customer findById(long id) throws Exception;

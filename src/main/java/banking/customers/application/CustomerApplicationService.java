@@ -5,16 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import banking.accounts.domain.entity.BankAccount;
-import banking.accounts.domain.repository.BankAccountRepository;
+import banking.accounts.domain.entity.Customer;
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
-import banking.customers.application.dto.CustomerDto;
 import banking.customers.domain.RequestCustomerDto;
-import banking.customers.domain.entity.Customer;
 import banking.customers.domain.repository.CustomerRepository;
-import banking.transactions.application.dto.RequestBankTransferDto;
-import banking.transactions.domain.service.TransferDomainService;
 
 @Service()
 public class CustomerApplicationService {
@@ -29,12 +24,19 @@ public class CustomerApplicationService {
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
         }
-        Customer customer = this.customerRepository.findById(requestCustomerDto.getCustomer().getId());
-		if ( customer != null ) {
-			this.customerRepository.save(requestCustomerDto.getCustomer());	
+        Customer customer = this.customerRepository.findById(requestCustomerDto.getId());
+		if ( customer == null ) {
+			customer = new Customer();
+			customer.setFirstName(requestCustomerDto.getFirstName());
+			customer.setLastName(requestCustomerDto.getLastName());
+			customer.setActive(requestCustomerDto.isActive());
+			this.customerRepository.save(customer);
 		} else {
-			this.customerRepository.save(customer);	
-		}        
+			customer.setFirstName(requestCustomerDto.getFirstName());
+			customer.setLastName(requestCustomerDto.getLastName());
+			customer.setActive(requestCustomerDto.isActive());
+			this.customerRepository.save(customer);
+		}
 	}
 	
 	private Notification validation(RequestCustomerDto requestCustomerDto) {
@@ -44,4 +46,6 @@ public class CustomerApplicationService {
 		}
 		return notification;
 	}
+	
+	
 }
