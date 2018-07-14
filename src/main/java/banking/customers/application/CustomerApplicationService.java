@@ -1,51 +1,38 @@
 package banking.customers.application;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import banking.accounts.domain.entity.Customer;
 import banking.common.application.Notification;
-import banking.common.application.enumeration.RequestBodyType;
-import banking.customers.domain.RequestCustomerDto;
-import banking.customers.domain.repository.CustomerRepository;
+import banking.customers.application.dto.CustomerDto;
+import banking.customers.domain.entity.Customer;
+import banking.customers.domain.repository.CustomerDao;
 
 @Service()
+@Transactional
 public class CustomerApplicationService {
-	
-	@Autowired
-	private CustomerRepository customerRepository;
 
+	@Autowired
+	CustomerDao customerDao;
 	
-	@Transactional
-	public void saveCustomer(RequestCustomerDto requestCustomerDto) throws Exception {
-		Notification notification = this.validation(requestCustomerDto);
-        if (notification.hasErrors()) {
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-        Customer customer = this.customerRepository.findById(requestCustomerDto.getId());
-		if ( customer == null ) {
-			customer = new Customer();
-			customer.setFirstName(requestCustomerDto.getFirstName());
-			customer.setLastName(requestCustomerDto.getLastName());
-			customer.setActive(requestCustomerDto.isActive());
-			this.customerRepository.save(customer);
-		} else {
-			customer.setFirstName(requestCustomerDto.getFirstName());
-			customer.setLastName(requestCustomerDto.getLastName());
-			customer.setActive(requestCustomerDto.isActive());
-			this.customerRepository.save(customer);
-		}
+	public ResponseEntity<Object> saveCustomer(CustomerDto customerDto) throws Exception {
+		Customer customer = new Customer();
+		customer.setFirstName(customerDto.getFirstName());
+		customer.setLastName(customerDto.getLastName());
+		customer.setActive(true);
+		customerDao.create(customer);
+		return ResponseEntity.ok().body(customer);	
 	}
-	
-	private Notification validation(RequestCustomerDto requestCustomerDto) {
-		Notification notification = new Notification();
-		if (requestCustomerDto == null || requestCustomerDto.getRequestBodyType() == RequestBodyType.INVALID) {
-			notification.addError("Invalid JSON data in request body.");
+
+	public ResponseEntity<Object> getCustomerId(long customerId) throws Exception {
+		Customer customer = customerDao.findById(Long.valueOf(customerId));		
+		if(customer == null) {
+			return ResponseEntity.notFound().build();
 		}
-		return notification;
+		return ResponseEntity.ok().body(customer);
 	}
-	
-	
+
+
 }

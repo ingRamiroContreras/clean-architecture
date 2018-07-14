@@ -1,27 +1,20 @@
-package banking.accounts.domain.entity;
+package banking.customers.domain.entity;
 
 import java.util.Set;
+
+import banking.accounts.domain.entity.BankAccount;
 
 public class Customer {
 	private long id;
     private String firstName;
     private String lastName;
-    private boolean active;
+    private Boolean active;
     private Set<BankAccount> bankAccounts;
 
     public Customer() {
     }
 
-    public Customer(long id, String firstName, String lastName, boolean active, Set<BankAccount> bankAccounts) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.active = active;
-		this.bankAccounts = bankAccounts;
-	}
-
-	public String getFullName() {
+    public String getFullName() {
         return String.format("%s, %s", this.lastName, this.firstName);
     }
 
@@ -49,21 +42,19 @@ public class Customer {
         this.lastName = lastName;
     }
 
-	public boolean isActive() {
+    public Set<BankAccount> getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(Set<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+	public Boolean getActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
-	public Set<BankAccount> getBankAccounts() {
-		return bankAccounts;
-	}
-
-	public void setBankAccounts(Set<BankAccount> bankAccounts) {
-		this.bankAccounts = bankAccounts;
-	}
-
-	    
 }

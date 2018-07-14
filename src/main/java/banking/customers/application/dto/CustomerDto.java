@@ -1,13 +1,9 @@
 package banking.customers.application.dto;
 
-import java.util.Set;
-
-import banking.accounts.application.dto.BankAccountDto;
-
 public class CustomerDto {
+	private String id;
 	private String firstName;
-	private String lastName;
-	private Set<BankAccountDto> bankAccountsDto;
+	private String lastName;	
 
 	public String getFirstName() {
 		return firstName;
@@ -25,11 +21,12 @@ public class CustomerDto {
 		this.lastName = lastName;
 	}
 
-	public Set<BankAccountDto> getBankAccountsDto() {
-		return bankAccountsDto;
+	public String getId() {
+		return id;
 	}
 
-	public void setBankAccountsDto(Set<BankAccountDto> bankAccountsDto) {
-		this.bankAccountsDto = bankAccountsDto;
+	public void setId(String id) {
+		this.id = id;
 	}
+
 }
