@@ -1,5 +1,8 @@
 package banking.customers.application;
 
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,14 @@ public class CustomerApplicationService {
 
 	public ResponseEntity<Object> getCustomerId(long customerId) throws Exception {
 		Customer customer = customerDao.findById(Long.valueOf(customerId));		
+		if(customer == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(customer);
+	}
+	
+	public ResponseEntity<Object> getCustomerAll(Optional<String> pag, Optional<String> pagLength) throws Exception {
+		Map<String, Object> customer = customerDao.findAll(pag, pagLength);		
 		if(customer == null) {
 			return ResponseEntity.notFound().build();
 		}

@@ -1,5 +1,7 @@
 package banking.customers.api.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,19 @@ public class CustomerController {
 			return this.responseHandler.getAppExceptionResponse();
 		}
 	}
+	
+	
+	@CrossOrigin(origins = "*")			
+	@RequestMapping(method = RequestMethod.GET, value = "/customerAll/pag/{pag}/pagLength/{pagLength}")
+	public ResponseEntity<Object> getCustomerAll(@PathVariable(value="pag") Optional<String> pag, @PathVariable(value="pagLength") Optional<String> pagLength){
+	try {	
+			return customerApplicationService.getCustomerAll(pag, pagLength);				
+		} catch(IllegalArgumentException ex) {
+			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
+		} catch(Exception ex) {
+			return this.responseHandler.getAppExceptionResponse();
+		}
+	}
+
 	
 }
