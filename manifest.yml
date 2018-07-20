@@ -4,7 +4,7 @@ applications:
   memory: 512M
   instances: 1
   path: target/clean-architecture-unmsm-0.0.1-SNAPSHOT.jar
-  buildpack: https://github.com/sergioide007/clean-architecture.git
+  buildpack: java_buildpack
   env:
     SPRING_PROFILES_ACTIVE : could
   services:
